@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{ecommercek.app.name}"></title>
+</head>
+<body>
+<h1 th:text="#{ecommercek.app.name}"></h1>
+<!--<div th:replace="fragments :: languages"></div>-->
+
+<!--<table>-->
+<!--    <th:block th:each="customer: ${customerList}" ➌>-->
+<!--        <tr>-->
+<!--            <td th:text="${customer.getCustomerName()}"></td>-->
+<!--            <td th:text="${customer.getEmail()}"></td>-->
+<!--            <td th:text="${customer.getPassword()}"></td>-->
+<!--        </tr>-->
+<!--    </th:block>-->
+<!--</table>-->
+
+<form th:action="@{/register}" method="post" th:object="${customerForm}">
+    <label for="customerName" th:text="#{customer.security.customername}"></label>
+    <input id="customerName" type="text" th:field="*{customerName}" autocomplete="off">
+    <label for="email" th:text="#{customer.security.email}"></label>
+    <input id="email" type="text" th:field="*{email}" autocomplete="off">
+    <label for="password" th:text="#{customer.security.password}"></label>
+    <input id="password" type="password" th:field="*{password}">
+    <input type="submit" th:value="#{customer.security.register}">
+</form>
+
+
+</body>
+</html>

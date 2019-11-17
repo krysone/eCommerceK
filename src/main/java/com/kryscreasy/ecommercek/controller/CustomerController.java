@@ -21,8 +21,7 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @GetMapping
-    public String customerList(Model model) {
-
+    public String customers(Model model) {
         model.addAttribute("customerForm", new CustomerDto());
         return "register";
     }

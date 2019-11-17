@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{ecommercek.app.name}"></title>
+</head>
+<body>
+<h1 th:text="#{ecommercek.app.name}"></h1>
+<!--<div th:replace="fragments :: languages"></div>-->
+
+<!--<table>-->
+<!--    <th:block th:each="customer: ${customerList}" ➌>-->
+<!--        <tr>-->
+<!--            <td th:text="${customer.getCustomerName()}"></td>-->
+<!--            <td th:text="${customer.getEmail()}"></td>-->
+<!--            <td th:text="${customer.getPassword()}"></td>-->
+<!--        </tr>-->
+<!--    </th:block>-->
+<!--</table>-->
+
+<form th:action="@{/addProduct}" method="post" th:object="${addProductForm}">
+    <label for="productName" th:text="#{addProduct.security.productName}"></label>
+    <input id="productName" type="text" th:field="*{productName}" autocomplete="off"><br>
+    <label for="description" th:text="#{addProduct.security.description}"></label>
+    <input id="description" type="text" th:field="*{description}" autocomplete="off"><br>
+    <label for="category" th:text="#{addProduct.security.category}"></label>
+    <input id="category" type="text" th:field="*{category}"><br>
+    <label for="price" th:text="#{addProduct.security.price}"></label>
+    <input id="price" type="number" th:field="*{price}"><br>
+    <input type="submit" th:value="#{add.security.submit}">
+</form>
+
+
+</body>
+</html>

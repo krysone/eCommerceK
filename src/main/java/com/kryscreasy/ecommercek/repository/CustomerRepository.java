@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-//    List<Customer> findAllByCustomerName(String customerName);
+    List<Customer> findAllByCustomerName(String customerName);
     List<Customer> findAll();
 }

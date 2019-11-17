@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 @Service
 public class ProductService {
 
-//    private final PasswordEncoder passwordEncoder;
     private final ProductRepository productRepository;
 
     public ProductService(ProductRepository productRepository) {

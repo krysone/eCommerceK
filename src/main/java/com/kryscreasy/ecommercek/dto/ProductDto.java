@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ProductDto {
 
-//    @NotBlank
+//    @NotBlank ()
 //    @Min(2)
 //    @Max(255)
     private String productName;

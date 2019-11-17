@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{ecommercek.app.name}"></title>
+</head>
+<body>
+<form method="POST" th:action="@{/orders}" th:object="${orderForm}">
+    <h1>Order your products!</h1>
+    <img th:src="@{/images/pers.png}"/>
+    <a th:href="@{/addProduct}" id="anotherProduct">Add another product if you want</a><br/>
+    <div th:if="${#fields.hasErrors()}">
+<span class="validationError">
+Ooops! Please correct the problems below and resubmit.
+</span>
+    </div>
+    <h3>Deliver my purchase to...</h3>
+    <label for="firstname" th:text="#{order.firstname}">First Name: </label>
+    <input id="firstname" type="text" th:field="*{firstname}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('firstname')}"
+          th:errors="*{firstname}">First name is required</span>
+    <br/>
+    <label for="lastname" th:text="#{order.lastname}">Last Name: </label>
+    <input id="lastname" type="text" th:field="*{lastname}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('lastname')}"
+          th:errors="*{lastname}">Last name is required</span>
+    <br/>
+    <label for="street" th:text="#{order.street}">Street: </label>
+    <input id="street" type="text" th:field="*{street}"/>
+        <span class="validationError"
+              th:if="${#fields.hasErrors('street')}"
+              th:errors="*{street}">Street is required</span>
+        <br/>
+    <label for="city" th:text="#{order.city}">City: </label>
+    <input id="city" type="text" th:field="*{city}"/>
+     <span class="validationError"
+          th:if="${#fields.hasErrors('city')}"
+          th:errors="*{city}">City is required</span>
+    <br/>
+    <label for="zip" th:text="#{order.zip}">Zip: </label>
+    <input id="zip" type="text" th:field="*{zip}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('zip')}"
+          th:errors="*{zip}">Zip code is required</span>
+    <br/>
+    <h3>Here's how I'll pay...</h3>
+    <label for="ccNumber" th:text="#{order.ccnumber}">ccNumber: </label>
+    <input id="ccNumber" type="text" th:field="*{ccNumber}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('ccNumber')}"
+          th:errors="*{ccNumber}">CC Num Error</span>
+    <br/>
+    <label for="ccExpiration" th:text="#{order.ccexpiration}">ccExpiration: </label>
+    <input id="ccExpiration" type="text" th:field="*{ccExpiration}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('ccExpiration')}"
+          th:errors="*{ccExpiration}">Must be formated MM/YY</span>
+    <br/>
+    <label for="cccvv" th:text="#{order.cccvv}">ccCVV: </label>
+    <input id="cccvv" type="text" th:field="*{ccCVV}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('ccCVV')}"
+          th:errors="*{ccCVV}">Invalid CVV</span>
+    <br/>
+    <input type="submit" th:value="#{ecommercek.app.submit}">
+</form>
+</body>
+</html>

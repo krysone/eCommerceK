@@ -8,17 +8,18 @@
 <h1 th:text="#{ecommercek.app.name}"></h1>
 <!--<div th:replace="fragments :: languages"></div>-->
 
-<!--<table>-->
-<!--    <th:block th:each="customer: ${customerList}" ➌>-->
-<!--        <tr>-->
-<!--            <td th:text="${customer.getCustomerName()}"></td>-->
-<!--            <td th:text="${customer.getEmail()}"></td>-->
-<!--            <td th:text="${customer.getPassword()}"></td>-->
-<!--        </tr>-->
-<!--    </th:block>-->
-<!--</table>-->
+<table>
+    <th:block th:each="product: ${productList}" ➌>
+        <tr>
+            <td th:text="${product.productName}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.category}"></td>
+        </tr>
+    </th:block>
+</table>
 
-<form th:action="@{/addProduct}" method="post" th:object="${addProductForm}">
+<form th:action="@{/products}" method="post" th:object="${addProductForm}">
     <label for="productName" th:text="#{addProduct.security.productName}"></label>
     <input id="productName" type="text" th:field="*{productName}" autocomplete="off"><br>
     <label for="description" th:text="#{addProduct.security.description}"></label>
@@ -27,7 +28,7 @@
     <input id="category" type="text" th:field="*{category}"><br>
     <label for="price" th:text="#{addProduct.security.price}"></label>
     <input id="price" type="number" th:field="*{price}"><br>
-    <input type="submit" th:value="#{add.security.submit}">
+    <input type="submit" th:value="#{ecommercek.app.submit}">
 </form>
 
 

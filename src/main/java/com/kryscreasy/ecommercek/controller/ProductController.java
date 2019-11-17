@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Slf4j
 @Controller
-@RequestMapping("/addProduct")
+@RequestMapping("/products")
 @RequiredArgsConstructor
 public class ProductController {
 
@@ -23,15 +26,18 @@ public class ProductController {
     @GetMapping
     public String products(Model model) {
 
+        List<ProductDto> prodList = new ArrayList<ProductDto>();
+        prodList = productService.findAll();
+        model.addAttribute("productList", prodList);
         model.addAttribute("addProductForm", new ProductDto());
-        return "addProduct";
+        return "products";
     }
 
 
     @PostMapping
-    public String addProduct(@ModelAttribute ProductDto addProductForm) {
+    public String addProduct(@ModelAttribute("addProductForm") ProductDto addProductForm) {
         log.info(addProductForm.getProductName());
         productService.createProduct(addProductForm);
-        return "redirect:/addProduct";
+        return "redirect:/products";
     }
 }

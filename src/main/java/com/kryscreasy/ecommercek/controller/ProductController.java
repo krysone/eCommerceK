@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +14,14 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("/products")
+//@RequestMapping("/products")
 @RequiredArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
 
-    @GetMapping
+    @GetMapping("/products")
     public String products(Model model) {
-
         List<ProductDto> prodList = new ArrayList<ProductDto>();
         prodList = productService.findAll();
         model.addAttribute("productList", prodList);
@@ -34,10 +30,36 @@ public class ProductController {
     }
 
 
-    @PostMapping
+    @PostMapping("/products")
     public String addProduct(@ModelAttribute("addProductForm") ProductDto addProductForm) {
+//        ProductDto isProductExist = productService.findById(addProductForm.getId());
         log.info(addProductForm.getProductName());
-        productService.createProduct(addProductForm);
+        log.info(String.valueOf(addProductForm.getId()));
+        if (addProductForm.getId() != null){
+//        if (productService.existProductById(addProductForm.getId())){
+            productService.updateProduct(addProductForm);
+        }
+        else {
+            productService.createProduct(addProductForm);
+        }
+        log.info(addProductForm.getProductName());
         return "redirect:/products";
     }
+
+//    @GetMapping(value = "/products/edit(id=${product.id})")
+    @GetMapping(value = "/products/edit")
+    public String editProduct(@RequestParam(value ="prodId", required = false) String prodId, Model model) {
+        Long ProdId = Long.parseLong(prodId);
+        ProductDto toBeEditedProd = new ProductDto();
+        if (!prodId.isEmpty()) {
+            toBeEditedProd = productService.findById(ProdId);
+        }
+        String forProductEditionViewOnly = "Edit the product";
+        model.addAttribute("ifInProductEditionView", forProductEditionViewOnly);
+        model.addAttribute("addProductForm", toBeEditedProd);
+
+        return "products";
+    }
+
+
 }

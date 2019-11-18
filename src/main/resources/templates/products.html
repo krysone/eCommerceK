@@ -15,10 +15,11 @@
             <td th:text="${product.description}"></td>
             <td th:text="${product.price}"></td>
             <td th:text="${product.category}"></td>
+            <td><a th:text="#{ecommercek.app.edit}" th:href="@{/products/edit(prodId=${product.id})}">Edit the product</a></td>
         </tr>
     </th:block>
 </table>
-
+<h1 th:text="${ifInProductEditionView}"></h1>
 <form th:action="@{/products}" method="post" th:object="${addProductForm}">
     <label for="productName" th:text="#{addProduct.security.productName}"></label>
     <input id="productName" type="text" th:field="*{productName}" autocomplete="off"><br>
@@ -28,6 +29,7 @@
     <input id="category" type="text" th:field="*{category}"><br>
     <label for="price" th:text="#{addProduct.security.price}"></label>
     <input id="price" type="number" th:field="*{price}"><br>
+    <input id="id" type="hidden" th:field="*{id}"><br>
     <input type="submit" th:value="#{ecommercek.app.submit}">
 </form>
 

@@ -5,6 +5,13 @@
     <title th:text="#{ecommercek.app.name}"></title>
 </head>
 <body>
+<div class="currentOrder-group" id="currentOrder">
+    <h3>Your cart</h3>
+    <div th:each="product : ${currentShopping}">
+<!--        <input name="product" type="checkbox" th:value="${product.id}"/>-->
+        <span th:text="${product}">Product name</span><br/>
+    </div>
+</div>
 <form method="POST" th:action="@{/orders}" th:object="${orderForm}">
     <h1>Order your products!</h1>
     <img th:src="@{/images/pers.png}"/>

@@ -6,6 +6,7 @@ import com.kryscreasy.ecommercek.entity.Customer;
 import com.kryscreasy.ecommercek.entity.Product;
 import com.kryscreasy.ecommercek.repository.CustomerRepository;
 import com.kryscreasy.ecommercek.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
     private final ProductRepository productRepository;
-
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
 
     public void createProduct(ProductDto productDto){
         Product entity = new Product();
@@ -67,15 +65,20 @@ public class ProductService {
     }
 
     public void updateProduct(ProductDto productDto){
+//        if (!prodId.isEmpty()) {
+//            toBeEditedProd = productService.findById(ProdId);
+//        }
         if (productRepository.existsById(productDto.getId())) {
-            productRepository.deleteById(productDto.getId());
-            Product entity = new Product();
+            Product entity = productRepository.findProductById(productDto.getId());
             entity.setProductName(productDto.getProductName());
             entity.setDescription(productDto.getDescription());
             entity.setCategory(productDto.getCategory());
             entity.setPrice(productDto.getPrice());
             productRepository.save(entity);
         }
+    }
+    public void deleteProductById(Long prodToBeDeletedId){
+        productRepository.deleteById(prodToBeDeletedId);
     }
 
 }

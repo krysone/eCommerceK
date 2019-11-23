@@ -15,12 +15,14 @@
             <td th:text="${product.description}"></td>
             <td th:text="${product.price}"></td>
             <td th:text="${product.category}"></td>
-            <td><a th:text="#{ecommercek.app.edit}" th:href="@{/products/edit(prodId=${product.id})}">Edit the product</a></td>
+            <td><a th:text="#{ecommercek.app.edit}" th:href="@{/products/edit(prodEditId=${product.id})}">Edit the product</a></td>
+            <td><a th:text="#{ecommercek.app.delete}" th:href="@{/products/delete(prodEditId=${product.id}, a='delete')}">Delete the product</a></td>
         </tr>
     </th:block>
 </table>
+<h1 th:text="${ifInProductSupplyView}"></h1>
 <h1 th:text="${ifInProductEditionView}"></h1>
-<form th:action="@{/products}" method="post" th:object="${addProductForm}">
+<form th:action="@{/products/add-new}" method="post" th:object="${addProductForm}">
     <label for="productName" th:text="#{addProduct.security.productName}"></label>
     <input id="productName" type="text" th:field="*{productName}" autocomplete="off"><br>
     <label for="description" th:text="#{addProduct.security.description}"></label>

@@ -14,7 +14,6 @@ import java.util.List;
 
 @Slf4j
 @Controller
-//@RequestMapping("/products")
 @RequiredArgsConstructor
 public class ProductController {
 
@@ -26,15 +25,18 @@ public class ProductController {
         prodList = productService.findAll();
         model.addAttribute("productList", prodList);
         model.addAttribute("addProductForm", new ProductDto());
+        String forProductSupplyViewOnly = "Supply a new product";
+        model.addAttribute("ifInProductSupplyView", forProductSupplyViewOnly);
         return "products";
     }
 
 
-    @PostMapping("/products")
+    @PostMapping("/products/add-new")
     public String addProduct(@ModelAttribute("addProductForm") ProductDto addProductForm) {
 //        ProductDto isProductExist = productService.findById(addProductForm.getId());
         log.info(addProductForm.getProductName());
         log.info(String.valueOf(addProductForm.getId()));
+//        productService.createProduct(addProductForm);
         if (addProductForm.getId() != null){
 //        if (productService.existProductById(addProductForm.getId())){
             productService.updateProduct(addProductForm);
@@ -48,18 +50,33 @@ public class ProductController {
 
 //    @GetMapping(value = "/products/edit(id=${product.id})")
     @GetMapping(value = "/products/edit")
-    public String editProduct(@RequestParam(value ="prodId", required = false) String prodId, Model model) {
-        Long ProdId = Long.parseLong(prodId);
-        ProductDto toBeEditedProd = new ProductDto();
-        if (!prodId.isEmpty()) {
-            toBeEditedProd = productService.findById(ProdId);
-        }
+    public String editProduct(@RequestParam(value ="prodEditId", required = false) Long prodEditId, Model model) {
+        log.info(String.valueOf(prodEditId));
+        ProductDto toBeEditedProd = productService.findById(prodEditId);
+
         String forProductEditionViewOnly = "Edit the product";
         model.addAttribute("ifInProductEditionView", forProductEditionViewOnly);
         model.addAttribute("addProductForm", toBeEditedProd);
 
         return "products";
     }
+    @GetMapping(value = "/products/delete")
+    public String deleteProd(@RequestParam(value ="prodEditId", required = false) Long prodEditId) {
+        log.info(String.valueOf(prodEditId));
+//        ProductDto toBeDeletedProd = productService.findById(prodEditId);
+        productService.deleteProductById(prodEditId);
+
+//        String forProductEditionViewOnly = "Edit the product";
+//        model.addAttribute("ifInProductEditionView", forProductEditionViewOnly);
+//        model.addAttribute("addProductForm", toBeDeletedProd);
+
+        return "redirect:/products";
+    }
 
 
+    // GET lista wszystkich produktów
+    // GET wyświetlenie formularza nowego produktu
+    // POST dodanie nowego produktu
+    // GET wyświetlenie formularza edycji produktu
+    // POST edycja produktu
 }

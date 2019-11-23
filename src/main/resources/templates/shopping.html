@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{ecommercek.app.name}">Title</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+<body>
+<h1 th:text="#{ecommercek.app.name}"></h1>
+<h1>Design your taco!</h1>
+<img th:src="@{/static/images/pers.png}"/>
+<form th:action="@{/shopping}" method="POST" th:object="${shoppingCart}">
+    <div th:if="${#fields.hasErrors()}">
+<span class="validationError">
+Ooops! Please correct the problems below and resubmit.
+</span>
+    </div>
+    <div class="grid">
+        <div class="products-group" id="allProducts">
+            <h3>Select your shopping:</h3>
+            <div th:each="product : ${allProducts}">
+                <input name="product" type="checkbox" th:value="${product.id}"
+                />
+                <span th:text="${product.productName}">Product name</span><br/>
+            </div>
+        </div>
+<!--        <div class="ingredient-group" id="proteins">-->
+<!--            <h3>Pick your protein:</h3>-->
+<!--            <div th:each="ingredient : ${protein}">-->
+<!--                <input name="ingredients" type="checkbox" th:value="${ingredient.id}"-->
+<!--                />-->
+<!--                <span th:text="${ingredient.name}">INGREDIENT</span><br/>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+    <div>
+        <h3>log in</h3>
+        <h3>or</h3>
+        <h3>register</h3>
+                <br/>
+        <button th:text="#{ecommercek.app.submit}"></button>
+    </div>
+</form>
+
+
+</body>
+</html>

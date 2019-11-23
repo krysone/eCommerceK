@@ -1,6 +1,8 @@
 package com.kryscreasy.ecommercek.controller;
 
 import com.kryscreasy.ecommercek.dto.OrderDto;
+import com.kryscreasy.ecommercek.dto.ProductDto;
+import com.kryscreasy.ecommercek.dto.ShoppingDto;
 import com.kryscreasy.ecommercek.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -23,11 +26,19 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @GetMapping("/current")
-    public String orderForm(Model model) {
-        model.addAttribute("orderForm", new OrderDto());
-        return "orderForm";
-    }
+//    @GetMapping("/current")
+//    public String orderForm(Model model,@ModelAttribute("allProducts") ShoppingDto currentShopping) {
+////        model.addAttribute("currentShopping", currentShopping);
+//        List<ProductDto> currentCart;
+//
+//        ShoppingDto currentShopping    = currentShopping;
+//        for (product:currentShopping) {
+//            currentCart.add(product);
+//        }
+//
+//        model.addAttribute("orderForm", new OrderDto());
+//        return "orderForm";
+//    }
 
     @PostMapping
     public String processOrder(@Valid @ModelAttribute("orderForm") OrderDto orderForm, BindingResult errors) {

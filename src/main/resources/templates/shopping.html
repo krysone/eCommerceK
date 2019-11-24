@@ -7,22 +7,32 @@
 </head>
 <body>
 <h1 th:text="#{ecommercek.app.name}"></h1>
-<h1>Design your taco!</h1>
+<h1>Welcome!</h1>
 <img th:src="@{/static/images/pers.png}"/>
-<form th:action="@{/shopping}" method="POST" th:object="${shoppingCart}">
-    <div th:if="${#fields.hasErrors()}">
-<span class="validationError">
-Ooops! Please correct the problems below and resubmit.
-</span>
-    </div>
+<!--<form th:action="@{/shopping}" method="POST" th:object="${shoppingCart}">-->
+<!--    <div th:if="${#fields.hasErrors()}">-->
+<!--<span class="validationError">-->
+<!--Ooops! Please correct the problems below and resubmit.-->
+<!--</span>-->
+<!--    </div>-->
     <div class="grid">
         <div class="products-group" id="allProducts">
             <h3>Select your shopping:</h3>
-            <div th:each="product : ${allProducts}">
-                <input name="product" type="checkbox" th:value="${product.id}"
-                />
-                <span th:text="${product.productName}">Product name</span><br/>
-            </div>
+
+            <table>
+                <th:block th:each="product: ${allProducts}" ➌>
+                    <tr>
+                        <td th:text="${product.productName}"></td>
+                        <td th:text="${product.description}"></td>
+                        <td th:text="${product.price}"></td>
+                        <td th:text="${product.category}"></td>
+                        <td><a th:text="Buy" th:href="@{/shopping/my-cart(addToCartId=${product.id})}">Buy</a></td>
+                    </tr>
+                </th:block>
+            </table>
+<!--                </div>-->
+<!--                <input type="submit" th:value="#{ecommercek.app.submit}">-->
+
         </div>
 <!--        <div class="ingredient-group" id="proteins">-->
 <!--            <h3>Pick your protein:</h3>-->
@@ -32,13 +42,11 @@ Ooops! Please correct the problems below and resubmit.
 <!--                <span th:text="${ingredient.name}">INGREDIENT</span><br/>-->
 <!--            </div>-->
 <!--        </div>-->
-    </div>
-    <div>
         <h3>log in</h3>
         <h3>or</h3>
         <h3>register</h3>
                 <br/>
-        <button th:text="#{ecommercek.app.submit}"></button>
+<!--        <button th:object="allProducts" th:method="post" th:action="@{shopping/orders/current}" th:text="#{ecommercek.app.submit}"></button>-->
     </div>
 </form>
 

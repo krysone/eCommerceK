@@ -3,24 +3,24 @@ package com.kryscreasy.ecommercek.controller;
 import com.kryscreasy.ecommercek.dto.ProductDto;
 import com.kryscreasy.ecommercek.dto.ShoppingDto;
 import com.kryscreasy.ecommercek.service.ProductService;
+import com.kryscreasy.ecommercek.service.ShoppingCartService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@Slf4j
 @Controller
 @RequestMapping("/shopping")
 @RequiredArgsConstructor
 public class ShoppingController {
 
     private final ProductService productService;
+    private final ShoppingCartService shoppingCartService;
 
     @GetMapping
     public String chooseProducts(Model model) {
@@ -30,11 +30,13 @@ public class ShoppingController {
         return "shopping";
     }
 
-    @PostMapping
-    public String shoppingCart(@ModelAttribute("allProducts") ShoppingDto allProducts, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "shopping";
-        }
-        return "redirect:/orders/current";
+    @GetMapping("/my-cart")
+    public String shoppingCart(@RequestParam(value ="addToCartId", required = false) Long addToCartId) {
+//        if (bindingResult.hasErrors()) {
+//            return "shopping";
+//        }
+        log.info(String.valueOf(addToCartId));
+        shoppingCartService.addToShoppingCart(addToCartId);
+        return "redirect:/shopping";
     }
 }

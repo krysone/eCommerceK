@@ -6,25 +6,43 @@
 </head>
 <body>
 
-<div class="currentOrder-group" id="currentOrder">
-    <h3>Your cart</h3>
-    <div th:each="product : ${currentShopping}">
-<!--        <input name="product" type="checkbox" th:value="${product.id}"/>-->
-        <span th:text="${product}">Product name</span><br/>
-    </div>
-</div>
+
+<h3>Your cart</h3>
+<table border="solid">
+    <tr>
+        <td th:text="Category"></td>
+        <td th:text="ProductName"></td>
+        <td th:text="Description"></td>
+        <td th:text="Price"></td>
+        <td th:text="Amount"></td>
+    </tr>
+    <th:block th:each="product: ${myCart}" ➌>
+        <tr>
+            <td th:text="${product.key.category}"></td>
+            <td th:text="${product.key.productName}"></td>
+            <td th:text="${product.key.description}"></td>
+            <td th:text="${product.key.price}"></td>
+            <td th:text="${product.value}"></td>
+            <!--                <td><a th:text="Buy" th:href="@{/shopping/my-cart(addToCartId=${product.id})}">Buy</a></td>-->
+        </tr>
+    </th:block>
+</table>
 
 
-<form method="POST" th:action="@{/orders}" th:object="${orderForm}">
-    <h1>Order your products!</h1>
-    <img th:src="@{/images/pers.png}"/>
-    <a th:href="@{/products}" id="anotherProduct">Add another product if you want</a><br/>
-    <div th:if="${#fields.hasErrors()}">
-<span class="validationError">
-Ooops! Please correct the problems below and resubmit.
-</span>
-    </div>
-    <h3>Deliver my purchase to...</h3>
+<h1>Order your products!</h1>
+<img th:src="@{/images/pers.png}"/>
+<a th:href="@{/shopping}" id="anotherProduct">Add another product if you want</a><br/>
+<!--<div th:if="${#fields.hasErrors()}">-->
+<!--<span class="validationError">-->
+<!--Ooops! Please correct the problems below and resubmit.-->
+<!--</span>-->
+<!--</div>-->
+
+<h3>Deliver my purchase to...</h3>
+<form method="POST" th:action="@{/my-order}" th:object="${orderForm}">
+
+    <!--    <input id="myCart" type="hidden" th:field="${myCartIdAndAmount}"/>-->
+
     <label for="firstname" th:text="#{order.firstname}">First Name: </label>
     <input id="firstname" type="text" th:field="*{firstname}"/>
     <span class="validationError"
@@ -39,13 +57,13 @@ Ooops! Please correct the problems below and resubmit.
     <br/>
     <label for="street" th:text="#{order.street}">Street: </label>
     <input id="street" type="text" th:field="*{street}"/>
-        <span class="validationError"
-              th:if="${#fields.hasErrors('street')}"
-              th:errors="*{street}">Street is required</span>
-        <br/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('street')}"
+          th:errors="*{street}">Street is required</span>
+    <br/>
     <label for="city" th:text="#{order.city}">City: </label>
     <input id="city" type="text" th:field="*{city}"/>
-     <span class="validationError"
+    <span class="validationError"
           th:if="${#fields.hasErrors('city')}"
           th:errors="*{city}">City is required</span>
     <br/>
@@ -74,6 +92,12 @@ Ooops! Please correct the problems below and resubmit.
           th:if="${#fields.hasErrors('ccCVV')}"
           th:errors="*{ccCVV}">Invalid CVV</span>
     <br/>
+    <input type="submit" th:value="#{ecommercek.app.submit}">
+</form>
+
+<form method="POST" th:action="@{/my-order}" th:object="${myCartIdAndAmount}">
+
+    <input id="myCart" type="hidden" th:field="${myCartIdAndAmount}"/>
     <input type="submit" th:value="#{ecommercek.app.submit}">
 </form>
 </body>

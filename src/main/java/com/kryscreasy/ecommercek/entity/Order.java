@@ -5,6 +5,9 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 
 @Data
 @Entity
@@ -21,6 +24,31 @@ public class Order {
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date placedAt = new Date();
+//
+////    @Column(name = "orderList_id")
+////    @OneToOne(cascade = CascadeType.ALL)
+//////    @JoinTable(
+//////            joinColumns = @JoinColumn(name = "")
+//////    )
+////    @JoinColumn(
+////            name = "order_list_id",
+////            referencedColumnName = "id",
+////            nullable = false)
+////    private OrderList orderList;
+//
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(
+//            name = "order_list_id",
+//            referencedColumnName = "id"
+//    )
+
+//    private OrderLine orderLine;
+
+//    @ElementCollection
+//    @CollectionTable(name = "order_shopingCart",
+//    joinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "id")})
+//    @MapKey("")
+//    private Map<Long, Integer> shopingCart;
 
     @Column
     private String firstname;
@@ -28,13 +56,13 @@ public class Order {
     @Column
     private String lastname;
 
-    @Column(nullable = false)
+    @Column
     private String street;
 
-    @Column(nullable = false)
+    @Column
     private String city;
 
-    @Column(nullable = false)
+    @Column
     private String zip;
 
     @Column

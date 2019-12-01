@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductMapperService productMapperService;
 
     public void createProduct(ProductDto productDto){
         Product entity = new Product();
@@ -31,23 +32,26 @@ public class ProductService {
     }
     public List<ProductDto> findAll() {
         return productRepository.findAll().stream()
-                .map(this::map)
+//                .map(this::map)
+                .map(productMapperService::mapEntityToDto)
                 .collect(Collectors.toList());
 
     }
-    public ProductDto map(Product product){
-        ProductDto dto = new ProductDto();
-        dto.setProductName(product.getProductName());
-        dto.setDescription(product.getDescription());
-        dto.setCategory(product.getCategory());
-        dto.setPrice(product.getPrice());
-        dto.setId(product.getId());
-        return dto;
-    }
+
+    //    public ProductDto map(Product product){
+//        ProductDto dto = new ProductDto();
+//        dto.setProductName(product.getProductName());
+//        dto.setDescription(product.getDescription());
+//        dto.setCategory(product.getCategory());
+//        dto.setPrice(product.getPrice());
+//        dto.setId(product.getId());
+//        return dto;
+//    }
     public ProductDto findById(Long prodId){
         ProductDto dto = new ProductDto();
         Optional<Product> prodById = productRepository.findById(prodId);
         if (prodById.isPresent()) {
+//            dto = productMapperService.mapEntityToDto(prodById);
             dto.setPrice(prodById.get().getPrice());
             dto.setCategory(prodById.get().getCategory());
             dto.setDescription(prodById.get().getDescription());

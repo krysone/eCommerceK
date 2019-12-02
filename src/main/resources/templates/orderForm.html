@@ -5,6 +5,10 @@
     <title th:text="#{ecommercek.app.name}"></title>
 </head>
 <body>
+<div th:replace="fragments :: languages"></div>
+<div th:replace="fragments :: header"></div>
+
+<h1 th:text="#{ecommercek.app.name}"></h1>
 
 
 <h3>Your cart</h3>
@@ -100,5 +104,7 @@
     <input id="myCart" type="hidden" th:field="${myCartIdAndAmount}"/>
     <input type="submit" th:value="#{ecommercek.app.submit}">
 </form>
+
+<div th:replace="fragments :: footer"></div>
 </body>
 </html>

@@ -6,6 +6,8 @@
     <link rel="stylesheet" th:href="@{/styles.css}"/>
 </head>
 <body>
+<div th:replace="fragments :: languages"></div>
+<div th:replace="fragments :: header"></div>
 <h1 th:text="#{ecommercek.app.name}"></h1>
 <h1>Welcome!</h1>
 <img th:src="@{/static/images/pers.png}"/>
@@ -51,5 +53,6 @@
 <!--        <button th:object="allProducts" th:method="post" th:action="@{shopping/orders/current}" th:text="#{ecommercek.app.submit}"></button>-->
 
 
+<div th:replace="fragments :: footer"></div>
 </body>
 </html>

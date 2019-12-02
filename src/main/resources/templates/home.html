@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
+    <title th:text="#{ecommercek.app.name}"></title>
 </head>
 <body>
-<h1>Welcome</h1>
+<div th:replace="fragments :: languages"></div>
+<div th:replace="fragments :: header"></div>
+
+<h1 th:text="#{ecommercek.app.name}"></h1>
+
+<div th:replace="fragments :: footer"></div>
 
 </body>
 </html>

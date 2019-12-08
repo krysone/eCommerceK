@@ -7,11 +7,7 @@
 <body>
 <div th:fragment="header">
     <a href="/logout" th:text="#{customer.security.logout}"></a>
-    <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">
-                <img th:href="@{/home}" th:src="@{/images/pers.png}"/>
-            </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a th:href="@{/home}">Home</a></li>
@@ -20,7 +16,6 @@
                 </ul>
             </div>
         </div>
-    </div>
 </div>
 <div th:fragment="languages">
     <a href="?lang=en_GB" th:text="#{language.english}"></a>&nbsp;|&nbsp;
